@@ -2,6 +2,7 @@ package commands;
 
 import client_side.Parser;
 import client_side.SimulatorSocket;
+import ex4.Simulator;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -12,18 +13,5 @@ public class ConnectCommand implements Command {
     public int doCommand(String[] args) throws IOException {
         SimulatorSocket.getInstance(args[0], Integer.parseInt(args[1]));
         return 0;
-    }
-
-    public static void stop()
-    {
-        //this._run = false;
-        try
-        {
-            SimulatorSocket.getInstance().stop();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
     }
 }

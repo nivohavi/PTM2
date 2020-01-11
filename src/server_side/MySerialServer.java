@@ -28,7 +28,7 @@ public class MySerialServer implements Server
             {
                 try
                 {
-                    this.listener.setSoTimeout(10000);
+                    this.listener.setSoTimeout(100000);
                     Socket s = this.listener.accept();
                     System.out.println("Connection established.");
 

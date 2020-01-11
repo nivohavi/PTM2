@@ -1,6 +1,8 @@
 package client_side;
 
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.Socket;
 
 public class SimulatorSocket {
@@ -25,16 +27,22 @@ public class SimulatorSocket {
         return _instance;
     }
 
+    private void sendString(String message) throws IOException {
+        OutputStream outstream = socket.getOutputStream();
+        PrintWriter out = new PrintWriter(outstream);
+
+        out.print(message);
+        out.flush();
+    }
+
     public void stop()
     {
         try
         {
+            sendString("bye");
             this.socket.close();
         }
 
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
+        catch (IOException e) {}
     }
 }

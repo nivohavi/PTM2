@@ -3,10 +3,7 @@ package client_side;
 import commands.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class Parser
 {
@@ -19,16 +16,12 @@ public class Parser
     {
         commandFactory.insertProduct("openDataServer", OpenDataServerCommand.class);
         commandFactory.insertProduct("connect", ConnectCommand.class);
-//        commandFactory.insertProduct("while",LoopCommand.class);
+        commandFactory.insertProduct("while",WhileCommand.class);
         commandFactory.insertProduct("var",VarCommand.class);
         commandFactory.insertProduct("return", ReturnCommand.class);
         commandFactory.insertProduct("=",AssignCommand.class);
-//        commandFactory.insertProduct("disconnect",DisconnectCommand.class);
-//        commandFactory.insertProduct("print",PrintCommand.class);
-//        commandFactory.insertProduct("sleep",SleepCommand.class);
-//        commandFactory.insertProduct("predicate",PredicateCommand.class);
-//        commandFactory.insertProduct("autoroute",AutoRouteCommand.class);
-//        commandFactory.insertProduct("if",IfCommand.class);
+        commandFactory.insertProduct("disconnect",DisconnectCommand.class);
+        commandFactory.insertProduct("predicate",PredicateCommand.class);
     }
 
     // Singleton
@@ -43,37 +36,71 @@ public class Parser
     // input: line
     public int parseAndExecute(String[] command) throws IOException {
         int result;
-        String[] splittedCommand = splitSpacesInExpression(command);
-        Command commandObj = (Command)commandFactory.getNewProduct(splittedCommand[0]);
+
+        Command commandObj = (Command)commandFactory.getNewProduct(command[0]);
         if (commandObj != null)
-            result = commandObj.doCommand(Arrays.copyOfRange(splittedCommand, 1, splittedCommand.length));
+            result = commandObj.doCommand(Arrays.copyOfRange(command, 1, command.length));
         else {
             commandObj = (Command) commandFactory.getNewProduct("=");
-            result = commandObj.doCommand(splittedCommand);
+            result = commandObj.doCommand(command);
         }
         return result;
     }
 
-    public static String[] replaceCommandVariables(String[] command) {
-        List<String> newCommand = new ArrayList<String>();
-        for (String c : command) {
-            newCommand.add(symbolTable.getOrDefault(c, c));
-        }
-        String[] result = new String[newCommand.size()];
-        result = newCommand.toArray(result);
+    public int parseLineByLine(String[] lines) {
+        int result = 0;
+        int while_index = -1;
 
+        for (int i = 0; i < lines.length; i++) {
+            String[] commandLine = Lexer.getInstance().lex(lines[i]);
+
+            try {
+                if (commandLine[0].equals("while")) {
+                    result = parseAndExecute(commandLine);
+                    if (result == 1) {
+                        while_index = i;
+                    }
+                    else {
+                       i += indicesCount(lines, i);
+                    }
+                }
+                else {
+                    if (commandLine[0].equals("}")) {
+                        i = while_index - 1;
+                    }
+                    else {
+                        if (commandLine[0].equals("")) {
+                            commandLine = Arrays.copyOfRange(commandLine, 1, commandLine.length);
+                        }
+                        result = parseAndExecute(commandLine);
+                        Thread.sleep(500);
+                    }
+                }
+            }
+            catch (IOException | InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
         return result;
     }
 
-    public static String[] splitSpacesInExpression(String[] command) {
-        List<String> newCommand = new ArrayList<String>();
-        for (String c : command) {
-            String[] split = c.split("(?<=[-+*/=()])|(?=[-+*/=()])");
-            newCommand.addAll(Arrays.asList(split));
+    private int indicesCount(String[] lines, int i) {
+        int skip = 0;
+        String[] commandLine = Lexer.getInstance().lex(lines[i]);
+        while (!commandLine[0].equals("}")) {
+            i++;
+            skip ++;
+            commandLine = Lexer.getInstance().lex(lines[i]);
         }
-        String[] result = new String[newCommand.size()];
-        result = newCommand.toArray(result);
+        return skip;
+    }
 
-        return result;
+    public static void updateBoundedTo(String key, String newVal) {
+        String bindName = Parser.bindsTable.get(key); // get SimX
+        for (Map.Entry<String, String> entry : Parser.bindsTable.entrySet()) {
+            if (entry.getValue().equals(bindName)) {
+                Parser.symbolTable.put(entry.getKey(), newVal);
+            }
+        }
     }
 }
