@@ -1,5 +1,7 @@
 package expressions;
 
+import client_side.Parser;
+
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
@@ -14,6 +16,10 @@ public class ShuntingYard {
 		for (String s : split){
 			if (isDouble(s)){
 				queue.add(s);
+			}
+			else if(Parser.symbolTable.containsKey(s))
+			{
+				queue.add(Parser.symbolTable.get(s));
 			}
 			else{
 				switch(s) {

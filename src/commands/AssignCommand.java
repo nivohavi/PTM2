@@ -5,7 +5,7 @@ import client_side.Parser;
 
 public class AssignCommand implements Command {
     @Override
-    public void doCommand(String[] args)
+    public int doCommand(String[] args)
     {
         if(args[2].equals("bind"))
         {
@@ -20,11 +20,18 @@ public class AssignCommand implements Command {
         }
         else
         {
+            Double d;
             StringBuilder exp = new StringBuilder();
-            for (int i = 2; i < args.length; i++)
-                exp.append(args[i]);
-            Double d = ShuntingYard.calc(exp.toString());
-            Parser.symbolTable.put(args[0], d);
+            if (args.length > 3) {
+                for (int i = 2; i < args.length; i++)
+                    exp.append(args[i]);
+                 d = ShuntingYard.calc(exp.toString());
+            }
+            else {
+                d = Double.parseDouble(args[2]);
+            }
+            Parser.symbolTable.put(args[0], d.toString());
         }
+        return 0;
     }
 }
