@@ -1,28 +1,27 @@
 package client_side;
 
-import commands.Command;
-import commands.ConnectCommand;
-import commands.OpenDataServerCommand;
-import commands.AssignCommand;
+import commands.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 public class Parser
 {
     private static Parser _instance = null;
-    private GenericFactory commandFactory = new GenericFactory<Command>();
-    public static HashMap<String,Object> symbolTable;
-    public static HashMap<String,Object> bindsTable;
+    public static GenericFactory commandFactory = new GenericFactory<Command>();
+    public static HashMap<String,String> symbolTable = new HashMap<String,String>();
+    public static HashMap<String,String> bindsTable = new HashMap<String,String>();
 
     private Parser()
     {
         commandFactory.insertProduct("openDataServer", OpenDataServerCommand.class);
         commandFactory.insertProduct("connect", ConnectCommand.class);
 //        commandFactory.insertProduct("while",LoopCommand.class);
-//        commandFactory.insertProduct("var",DefineVarCommand.class);
-//        commandFactory.insertProduct("return",ReturnCommand.class);
+        commandFactory.insertProduct("var",VarCommand.class);
+        commandFactory.insertProduct("return", ReturnCommand.class);
         commandFactory.insertProduct("=",AssignCommand.class);
 //        commandFactory.insertProduct("disconnect",DisconnectCommand.class);
 //        commandFactory.insertProduct("print",PrintCommand.class);
@@ -42,8 +41,39 @@ public class Parser
     }
 
     // input: line
-    public void parseAndExecute(String[] command) throws IOException {
-        Command commandObj = (Command)commandFactory.getNewProduct(command[0]);
-        commandObj.doCommand(Arrays.copyOfRange(command, 1, command.length));
+    public int parseAndExecute(String[] command) throws IOException {
+        int result;
+        String[] splittedCommand = splitSpacesInExpression(command);
+        Command commandObj = (Command)commandFactory.getNewProduct(splittedCommand[0]);
+        if (commandObj != null)
+            result = commandObj.doCommand(Arrays.copyOfRange(splittedCommand, 1, splittedCommand.length));
+        else {
+            commandObj = (Command) commandFactory.getNewProduct("=");
+            result = commandObj.doCommand(splittedCommand);
+        }
+        return result;
+    }
+
+    public static String[] replaceCommandVariables(String[] command) {
+        List<String> newCommand = new ArrayList<String>();
+        for (String c : command) {
+            newCommand.add(symbolTable.getOrDefault(c, c));
+        }
+        String[] result = new String[newCommand.size()];
+        result = newCommand.toArray(result);
+
+        return result;
+    }
+
+    public static String[] splitSpacesInExpression(String[] command) {
+        List<String> newCommand = new ArrayList<String>();
+        for (String c : command) {
+            String[] split = c.split("(?<=[-+*/=()])|(?=[-+*/=()])");
+            newCommand.addAll(Arrays.asList(split));
+        }
+        String[] result = new String[newCommand.size()];
+        result = newCommand.toArray(result);
+
+        return result;
     }
 }

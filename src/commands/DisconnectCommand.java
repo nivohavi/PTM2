@@ -2,7 +2,7 @@ package commands;
 
 public class DisconnectCommand implements Command {
     @Override
-    public void doCommand(String[] array) {
+    public int doCommand(String[] array) {
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
@@ -12,5 +12,6 @@ public class DisconnectCommand implements Command {
         //ConnectCommand.stop=true;
         ConnectCommand.stop();
         System.out.println("bye");
+        return 0;
     }
 }

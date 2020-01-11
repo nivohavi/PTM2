@@ -9,8 +9,9 @@ import java.net.Socket;
 public class ConnectCommand implements Command {
 
     @Override
-    public void doCommand(String[] args) throws IOException {
+    public int doCommand(String[] args) throws IOException {
         SimulatorSocket.getInstance(args[0], Integer.parseInt(args[1]));
+        return 0;
     }
 
     public static void stop()
