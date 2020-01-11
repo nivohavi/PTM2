@@ -9,9 +9,9 @@ public class OpenDataServerCommand implements Command{
 
     @Override
     public int doCommand(String[] args) {
-        ClientHandler fc = new FlightClientHandler(Integer.parseInt(args[2]));
+        ClientHandler fc = new FlightClientHandler(Integer.parseInt(args[1]));
         Server s1 = new MySerialServer();
-        s1.start(Integer.parseInt(args[1]), fc);
+        s1.start(Integer.parseInt(args[0]), fc);
         return 0;
     }
 }

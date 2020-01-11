@@ -1,17 +1,20 @@
 package commands;
 
+import client_side.SimulatorSocket;
+import server_side.FlightClientHandler;
+
+import java.io.IOException;
+
 public class DisconnectCommand implements Command {
     @Override
     public int doCommand(String[] array) {
         try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
+            SimulatorSocket.getInstance().stop();
+            FlightClientHandler.stop = true;
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
-        //OpenDataServer.stop=true;
-        //ConnectCommand.stop=true;
-        ConnectCommand.stop();
-        System.out.println("bye");
         return 0;
     }
 }
