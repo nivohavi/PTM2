@@ -1,5 +1,6 @@
 package commands;
 
+import client_side.Parser;
 import server_side.ClientHandler;
 import server_side.FlightClientHandler;
 import server_side.MySerialServer;
@@ -12,6 +13,7 @@ public class OpenDataServerCommand implements Command{
         ClientHandler fc = new FlightClientHandler(Integer.parseInt(args[1]));
         Server s1 = new MySerialServer();
         s1.start(Integer.parseInt(args[0]), fc);
+        Parser.socketToClose = s1;
         return 0;
     }
 }
