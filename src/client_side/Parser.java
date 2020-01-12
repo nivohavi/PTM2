@@ -1,6 +1,8 @@
 package client_side;
 
 import commands.*;
+import server_side.MySerialServer;
+import server_side.Server;
 
 import java.io.IOException;
 import java.util.*;
@@ -8,12 +10,14 @@ import java.util.*;
 public class Parser
 {
     private static Parser _instance = null;
+    public static Server socketToClose = null;
     public static GenericFactory commandFactory = new GenericFactory<Command>();
     public static HashMap<String,String> symbolTable = new HashMap<String,String>();
     public static HashMap<String,String> bindsTable = new HashMap<String,String>();
 
     private Parser()
     {
+
         commandFactory.insertProduct("openDataServer", OpenDataServerCommand.class);
         commandFactory.insertProduct("connect", ConnectCommand.class);
         commandFactory.insertProduct("while",WhileCommand.class);
@@ -36,14 +40,14 @@ public class Parser
     // input: line
     public int parseAndExecute(String[] command) throws IOException {
         int result;
-
-        Command commandObj = (Command)commandFactory.getNewProduct(command[0]);
+         Command commandObj = (Command)commandFactory.getNewProduct(command[0]);
         if (commandObj != null)
             result = commandObj.doCommand(Arrays.copyOfRange(command, 1, command.length));
         else {
             commandObj = (Command) commandFactory.getNewProduct("=");
             result = commandObj.doCommand(command);
         }
+
         return result;
     }
 

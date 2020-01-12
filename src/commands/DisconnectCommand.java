@@ -1,7 +1,9 @@
 package commands;
 
+import client_side.Parser;
 import client_side.SimulatorSocket;
 import server_side.FlightClientHandler;
+import server_side.MySerialServer;
 
 import java.io.IOException;
 
@@ -11,6 +13,8 @@ public class DisconnectCommand implements Command {
         try {
             SimulatorSocket.getInstance().stop();
             FlightClientHandler.stop = true;
+            if(Parser.socketToClose!=null)
+                Parser.socketToClose.stop();
         }
         catch (IOException e) {
             e.printStackTrace();
