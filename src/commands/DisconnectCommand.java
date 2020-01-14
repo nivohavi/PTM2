@@ -15,8 +15,10 @@ public class DisconnectCommand implements Command {
             FlightClientHandler.stop = true;
             if(Parser.socketToClose!=null)
                 Parser.socketToClose.stop();
+            Thread.sleep(1000);
+
         }
-        catch (IOException e) {
+        catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
         return 0;
