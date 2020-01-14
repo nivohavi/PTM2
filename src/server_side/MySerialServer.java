@@ -3,6 +3,7 @@ package server_side;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 
 public class MySerialServer implements Server
@@ -37,13 +38,8 @@ public class MySerialServer implements Server
                     c.handleClient(s.getInputStream(), s.getOutputStream());
                 } catch (UnknownHostException e) {
                     e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
                 }
-//                catch (IOException | NullPointerException e)
-//                {
-//                    e.printStackTrace();
-//                }
+                catch (IOException e) { }
 
             }
         };

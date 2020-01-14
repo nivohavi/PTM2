@@ -77,11 +77,10 @@ public class Parser
                             commandLine = Arrays.copyOfRange(commandLine, 1, commandLine.length);
                         }
                         result = parseAndExecute(commandLine);
-                        Thread.sleep(500);
                     }
                 }
             }
-            catch (IOException | InterruptedException e) {
+            catch (IOException e) {
                 e.printStackTrace();
             }
         }
