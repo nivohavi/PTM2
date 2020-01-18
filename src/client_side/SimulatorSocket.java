@@ -31,7 +31,7 @@ public class SimulatorSocket {
         OutputStream outstream = socket.getOutputStream();
         PrintWriter out = new PrintWriter(outstream);
 
-        out.print(message);
+        out.println(message);
         out.flush();
     }
 

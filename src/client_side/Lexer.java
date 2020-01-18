@@ -26,7 +26,7 @@ public class Lexer
     private static String[] splitSpacesInExpression(String[] command) {
         List<String> newCommand = new ArrayList<String>();
         for (String c : command) {
-            String[] split = c.split("(?<=[-+*/=()])|(?=[-+*/=()])");
+            String[] split = c.split("(?<=[-+*=()])|(?=[-+*=()])");
             newCommand.addAll(Arrays.asList(split));
         }
         String[] result = new String[newCommand.size()];

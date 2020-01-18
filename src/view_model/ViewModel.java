@@ -48,7 +48,7 @@ public class ViewModel {
         // Connect to FlightGear
         //openServer();
         connectToSimulator();
-        System.out.println("opened server");
+        System.out.println("Connected to flight-gear server");
     }
 
     private void openServer() {
@@ -60,7 +60,7 @@ public class ViewModel {
     }
 
     public void connectToSimulator() {
-        sm.connectToSimulator("127.0.0.1", 5400);
+        sm.connectToSimulator("127.0.0.1", 5402);
     }
 
     public void setThrottle() {
