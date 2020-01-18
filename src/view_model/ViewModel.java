@@ -35,8 +35,12 @@ public class ViewModel {
         this.sm = sm;
         simulatorIP = new SimpleStringProperty();
         simulatorPort = new SimpleStringProperty();
+
+        // Sliders
         rudder = new SimpleDoubleProperty();
         throttle = new SimpleDoubleProperty();
+
+        // Joystick
         aileron = new SimpleStringProperty();
         elevator = new SimpleStringProperty();
 

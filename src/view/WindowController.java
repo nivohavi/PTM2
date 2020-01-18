@@ -9,14 +9,14 @@ public class WindowController {
     ViewModel vm;
 
     @FXML
-    Slider aileron;
+    Slider throttle;
     @FXML
     Slider rudder;
     //...
 
     public void setViewModel(ViewModel vm) {
         this.vm=vm;
-        //vm.aileron.bind(aileron.valueProperty());
+        vm.throttle.bind(throttle.valueProperty());
         vm.rudder.bind(rudder.valueProperty());
 
         //...

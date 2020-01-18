@@ -20,13 +20,20 @@ public class Lexer
 
     public String[] lex(String line)
     {
-        return splitSpacesInExpression(line.split("\\s+"));
+        String [] splittedCommands = line.split("\\s+");
+        if(splittedCommands[0].equals("set"))
+        {
+            return splittedCommands;
+        }
+        else{
+            return splitSpacesInExpression(splittedCommands);
+        }
     }
 
     private static String[] splitSpacesInExpression(String[] command) {
         List<String> newCommand = new ArrayList<String>();
         for (String c : command) {
-            String[] split = c.split("(?<=[-+*=()])|(?=[-+*=()])");
+            String[] split = c.split("(?<=[-+*/=()])|(?=[-+*/=()])");
             newCommand.addAll(Arrays.asList(split));
         }
         String[] result = new String[newCommand.size()];
