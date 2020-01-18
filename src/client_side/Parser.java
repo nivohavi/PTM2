@@ -26,6 +26,8 @@ public class Parser
         commandFactory.insertProduct("=",AssignCommand.class);
         commandFactory.insertProduct("disconnect",DisconnectCommand.class);
         commandFactory.insertProduct("predicate",PredicateCommand.class);
+        commandFactory.insertProduct("set",SetCommand.class);
+
     }
 
     // Singleton
