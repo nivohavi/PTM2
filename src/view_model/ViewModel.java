@@ -44,8 +44,8 @@ public class ViewModel {
         aileron = new SimpleStringProperty();
         elevator = new SimpleStringProperty();
 
-        throttle.addListener((o,old,nw)->setThrottle());
-        rudder.addListener((o,old,nw)->setRudder());
+        //throttle.addListener((o,old,nw)->setThrottle());
+        //rudder.addListener((o,old,nw)->setRudder());
         //aileron.addListener((o,old,nw)->setJoystickChanges());
         //elevator.addListener((o,old,nw)->setJoystickChanges());
 
@@ -73,6 +73,7 @@ public class ViewModel {
 
     public void setRudder() {
         sm.setRudder(rudder.get());
+
     }
 
     public void setJoystickChanges() {
