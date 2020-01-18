@@ -44,14 +44,8 @@ public class ViewModel {
         aileron = new SimpleStringProperty();
         elevator = new SimpleStringProperty();
 
-        //throttle.addListener((o,old,nw)->setThrottle());
-        //rudder.addListener((o,old,nw)->setRudder());
-        //aileron.addListener((o,old,nw)->setJoystickChanges());
-        //elevator.addListener((o,old,nw)->setJoystickChanges());
-
-        // Connect to FlightGear
-        //openServer();
         connectToSimulator();
+        initData();
         System.out.println("Connected to flight-gear server");
     }
 
@@ -79,5 +73,14 @@ public class ViewModel {
     public void setJoystickChanges() {
         sm.setAileron(Double.parseDouble(aileron.get()));
         sm.setElevator(Double.parseDouble(elevator.get()));
+    }
+
+    public void initData()
+    {
+        sm.setAileron(0);
+        sm.setRudder(0);
+        sm.setThrottle(0);
+        sm.setElevator(0);
+
     }
 }

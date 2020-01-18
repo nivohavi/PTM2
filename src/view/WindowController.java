@@ -40,6 +40,10 @@ public class WindowController {
     @FXML
     private Label rudderValueLabel;
 
+
+    private Double initX;
+    private Double initY;
+
     public WindowController(){
         joystick = new Circle();
         throttleValue = new Label();
@@ -49,6 +53,9 @@ public class WindowController {
 
         aileronV = new SimpleStringProperty();
         elevatorV = new SimpleStringProperty();
+
+        initX = joystick.getTranslateX();
+        initY = joystick.getTranslateY();
 
         throttleValue.setText("0");
         rudderValueLabel.setText("0");
@@ -83,8 +90,8 @@ public class WindowController {
         double offsetY = me.getSceneY() - orgSceneY;
         double newTranslateX = orgTranslateX + offsetX;
         double newTranslateY = orgTranslateY + offsetY;
-        double joystickCenterX = frameCircle.getTranslateX() + frameCircle.getRadius() - joystick.getRadius();
-        double joystickCenterY = frameCircle.getTranslateY() - frameCircle.getRadius() - joystick.getRadius();
+        double joystickCenterX = frameCircle.getTranslateX() + frameCircle.getRadius() - joystick.getRadius() - 35;
+        double joystickCenterY = frameCircle.getTranslateY() - frameCircle.getRadius() - joystick.getRadius() - 35;
         double frameRadius = frameCircle.getRadius();
         double maxX = joystickCenterX + frameRadius;
         double contractionsCenterX = joystickCenterX - frameRadius;
@@ -125,8 +132,8 @@ public class WindowController {
 
     @FXML
     private void joystickReleased(MouseEvent me) {
-        ((Circle) (me.getSource())).setTranslateX(frameCircle.getTranslateX() + frameCircle.getRadius() - joystick.getRadius());
-        ((Circle) (me.getSource())).setTranslateY(frameCircle.getTranslateY() - frameCircle.getRadius() - joystick.getRadius());
+        ((Circle) (me.getSource())).setTranslateX(frameCircle.getTranslateX() + frameCircle.getRadius() - joystick.getRadius() - 35);
+        ((Circle) (me.getSource())).setTranslateY(frameCircle.getTranslateY() - frameCircle.getRadius() - joystick.getRadius() - 35);
 
         aileronValue.setText("" + 0);
         elevatorValue.setText("" + 0);
