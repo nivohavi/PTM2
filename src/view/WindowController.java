@@ -17,7 +17,6 @@ public class WindowController {
     private StringProperty aileronV, elevatorV;
     private double orgSceneX, orgSceneY;
     private double orgTranslateX, orgTranslateY;
-    private Circle destCircle;
     ViewModel vm;
 
     // GUI data members
@@ -40,10 +39,6 @@ public class WindowController {
     @FXML
     private Label rudderValueLabel;
 
-
-    private Double initX;
-    private Double initY;
-
     public WindowController(){
         joystick = new Circle();
         throttleValue = new Label();
@@ -53,9 +48,6 @@ public class WindowController {
 
         aileronV = new SimpleStringProperty();
         elevatorV = new SimpleStringProperty();
-
-        initX = joystick.getTranslateX();
-        initY = joystick.getTranslateY();
 
         throttleValue.setText("0");
         rudderValueLabel.setText("0");
@@ -68,12 +60,9 @@ public class WindowController {
         vm.throttle.bind(throttle.valueProperty());
         vm.rudder.bind(rudder.valueProperty());
 
-
-
         vm.aileron.bind(aileronV);
         vm.elevator.bind(elevatorV);
         joystick = new Circle();
-
     }
 
     @FXML
@@ -90,8 +79,8 @@ public class WindowController {
         double offsetY = me.getSceneY() - orgSceneY;
         double newTranslateX = orgTranslateX + offsetX;
         double newTranslateY = orgTranslateY + offsetY;
-        double joystickCenterX = frameCircle.getTranslateX() + frameCircle.getRadius() - joystick.getRadius() - 35;
-        double joystickCenterY = frameCircle.getTranslateY() - frameCircle.getRadius() - joystick.getRadius() - 35;
+        double joystickCenterX = frameCircle.getTranslateX() + frameCircle.getRadius() - joystick.getRadius() - 33;
+        double joystickCenterY = frameCircle.getTranslateY() - frameCircle.getRadius() - joystick.getRadius() - 33;
         double frameRadius = frameCircle.getRadius();
         double maxX = joystickCenterX + frameRadius;
         double contractionsCenterX = joystickCenterX - frameRadius;
@@ -132,8 +121,8 @@ public class WindowController {
 
     @FXML
     private void joystickReleased(MouseEvent me) {
-        ((Circle) (me.getSource())).setTranslateX(frameCircle.getTranslateX() + frameCircle.getRadius() - joystick.getRadius() - 35);
-        ((Circle) (me.getSource())).setTranslateY(frameCircle.getTranslateY() - frameCircle.getRadius() - joystick.getRadius() - 35);
+        ((Circle) (me.getSource())).setTranslateX(frameCircle.getTranslateX() + frameCircle.getRadius() - joystick.getRadius() - 33);
+        ((Circle) (me.getSource())).setTranslateY(frameCircle.getTranslateY() - frameCircle.getRadius() - joystick.getRadius() - 33);
 
         aileronValue.setText("" + 0);
         elevatorValue.setText("" + 0);

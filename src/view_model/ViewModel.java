@@ -1,6 +1,5 @@
 package view_model;
 
-import ex4.Simulator;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -13,8 +12,6 @@ public class ViewModel {
 
     // models
     private SimulatorModel sm;
-    /* ***data members related to view*** */
-    // ** simulator **
 
     public StringProperty simulatorIP;
     public StringProperty simulatorPort;
@@ -52,7 +49,8 @@ public class ViewModel {
     private void openServer() {
         try {
             sm.openServer("5400", "10");
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -81,6 +79,5 @@ public class ViewModel {
         sm.setRudder(0);
         sm.setThrottle(0);
         sm.setElevator(0);
-
     }
 }

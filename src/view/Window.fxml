@@ -17,7 +17,7 @@
 <?import javafx.scene.paint.Stop?>
 <BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.WindowController">
    <center>
-      <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="400.0" prefWidth="340.0" BorderPane.alignment="TOP_CENTER">
+      <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="1000.0" prefWidth="1000.0" BorderPane.alignment="TOP_CENTER">
          <children>
             <TextFlow prefHeight="200.0" prefWidth="200.0" />
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="⇦ Aileron ⇨" translateX="130.0" translateY="60.0">
@@ -55,77 +55,4 @@
          </children>
       </VBox>
    </center>
-   <left>
-      <HBox fx:id="manualDataPanel" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="340.0" translateY="-50.0" BorderPane.alignment="TOP_RIGHT">
-         <children>
-            <HBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="200.0">
-               <children>
-                  <VBox prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                        <Label text="Aileron" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="aileronValue" textFill="WHITE">
-                           <font>
-                              <Font size="17.0" />
-                           </font></Label>
-                     </children>
-                  </VBox>
-               </children>
-            </HBox>
-            <HBox prefHeight="25.0" prefWidth="200.0">
-               <children>
-                  <VBox prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                        <Label text="Elevator" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="elevatorValue" textFill="WHITE">
-                           <font>
-                              <Font size="17.0" />
-                           </font></Label>
-                     </children>
-                  </VBox>
-               </children>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <VBox prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                        <Label text="Rudder" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="rudderValue" textFill="WHITE">
-                           <font>
-                              <Font size="17.0" />
-                           </font></Label>
-                     </children>
-                  </VBox>
-               </children>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <VBox prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                        <Label text="Throttle" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="throttleValue" textFill="WHITE">
-                           <font>
-                              <Font size="17.0" />
-                           </font></Label>
-                     </children>
-                  </VBox>
-               </children>
-            </HBox>
-         </children></HBox>
-   </left>
 </BorderPane>

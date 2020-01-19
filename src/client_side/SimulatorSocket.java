@@ -35,14 +35,12 @@ public class SimulatorSocket {
         out.flush();
     }
 
-    public void stop()
-    {
+    public void stop() {
         try
         {
             sendString("bye");
             this.socket.close();
         }
-
         catch (IOException e) {}
     }
 }

@@ -10,22 +10,19 @@ public class Lexer
 
     private Lexer() {}
 
-    public static Lexer getInstance()
-    {
+    public static Lexer getInstance() {
         if (_instance == null)
             _instance = new Lexer();
 
         return _instance;
     }
 
-    public String[] lex(String line)
-    {
+    public String[] lex(String line) {
         String [] splittedCommands = line.split("\\s+");
-        if(splittedCommands[0].equals("set"))
-        {
+        if(splittedCommands[0].equals("set")) {
             return splittedCommands;
         }
-        else{
+        else {
             return splitSpacesInExpression(splittedCommands);
         }
     }

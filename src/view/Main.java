@@ -17,13 +17,10 @@ public class Main extends Application {
     public void start(Stage _primaryStage) {
         primaryStage = _primaryStage;
 
-        // ***create models and view-model connections***
         // models
         SimulatorModel simModel = new SimulatorModel();
         // view model
-
         ViewModel viewModel = new ViewModel(simModel);
-        //simModel.addObserver(viewModel);
 
         FXMLLoader fxl=new FXMLLoader();
         try {
@@ -32,13 +29,14 @@ public class Main extends Application {
             WindowController wc=fxl.getController(); // View
             wc.setViewModel(viewModel);
 
-            Scene scene = new Scene(root,400,400);
+            Scene scene = new Scene(root,350,800);
             scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
             primaryStage.setScene(scene);
             primaryStage.show();
             wc.setSliderOnDragEvent();
 
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
 

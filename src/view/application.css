@@ -1,1 +1,4 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+HBox, VBox, BorderPane {
+    -fx-background-color: #65a3cf ;
+}

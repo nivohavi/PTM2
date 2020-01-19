@@ -1,9 +1,6 @@
 package model;
 
-import commands.Command;
-import commands.OpenDataServerCommand;
 import test.MyInterpreter;
-
 import java.io.IOException;
 
 public class SimulatorModel implements Model {
