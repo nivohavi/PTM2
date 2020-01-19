@@ -27,22 +27,20 @@ public class SimulatorSocket {
         return _instance;
     }
 
-    private void sendString(String message) throws IOException {
+    public void sendString(String message) throws IOException {
         OutputStream outstream = socket.getOutputStream();
         PrintWriter out = new PrintWriter(outstream);
 
-        out.print(message);
+        out.println(message);
         out.flush();
     }
 
-    public void stop()
-    {
+    public void stop() {
         try
         {
             sendString("bye");
             this.socket.close();
         }
-
         catch (IOException e) {}
     }
 }
